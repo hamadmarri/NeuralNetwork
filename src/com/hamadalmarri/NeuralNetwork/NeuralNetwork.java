@@ -39,13 +39,13 @@ public class NeuralNetwork {
 		Layer prevLayer = this.inputLayer;
 		for (int i = 0; i < this.numberOfHiddenLayers - 1; i++) {
 			prevLayer = this.hiddenLayers[i] = new HiddenLayer(this.numberOfHiddenNodes, prevLayer,
-					this.numberOfHiddenNodes);
+					this.numberOfOutputNodes);
 		}
 
 		// the last hidden layer is different in number of
 		// output edges
 		this.hiddenLayers[this.numberOfHiddenLayers - 1] = new HiddenLayer(this.numberOfHiddenNodes, prevLayer,
-				this.numberOfInputNodes);
+				this.numberOfOutputNodes);
 	}
 
 
