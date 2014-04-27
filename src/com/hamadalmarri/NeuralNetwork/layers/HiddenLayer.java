@@ -11,11 +11,12 @@ public class HiddenLayer extends Layer {
 
 	public HiddenLayer(int numberOfNodes, Layer previousLayer, int numberOfOutputEdges) {
 		super(numberOfNodes);
-		this.numberOfOutputEdges = numberOfOutputEdges;
+		this.numberOfOutputEdges = numberOfOutputEdges + 1; // bais
 		this.previousLayer = previousLayer;
-		for (int i = 0; i < this.nodes.length; i++)
-			this.nodes[i].setOutputEdges(new Edge[this.numberOfOutputEdges]);
+		for (int i = 0; i < this.neurons.length; i++)
+			this.neurons[i].setOutputEdges(new Edge[this.numberOfOutputEdges]);
 
 		Layer.connectTwoLayers(this.previousLayer, this);
 	}
+
 }

@@ -4,18 +4,31 @@ import com.hamadalmarri.NeuralNetwork.Edge;
 import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class Layer {
-	protected int numberOfNodes = 0;
-	protected Neuron nodes[];
+	protected int numberOfNeurons = 0;
+	protected Neuron neurons[];
 
 
 
-	public Layer(int numberOfNodes) {
-		this.numberOfNodes = numberOfNodes;
-		this.nodes = new Neuron[numberOfNodes];
+	public Layer(int numberOfNeurons) {
+		// + 1 is for bias neuron
+		this.numberOfNeurons = numberOfNeurons + 1;
+		this.neurons = new Neuron[this.numberOfNeurons];
 
 		// initialize nodes
-		for (int i = 0; i < this.nodes.length; i++)
-			this.nodes[i] = new Neuron();
+		for (int i = 0; i < this.neurons.length; i++)
+			this.neurons[i] = new Neuron();
+
+		// make the bias neuron's output = 1
+		this.neurons[this.numberOfNeurons - 1].setOutput(1);
+
+	}
+
+
+
+	public void feedForward() {
+		// - 1 so bias neuron doesn't need to calculate its output
+		for (int i = 0; i < this.neurons.length - 1; i++)
+			this.neurons[i].feedForward();
 
 	}
 
@@ -24,29 +37,29 @@ public class Layer {
 	public static void connectTwoLayers(Layer previous, Layer next) {
 		// set previous layer's nodes to connect to next
 		// layer's nodes
-		for (int i = 0; i < previous.numberOfNodes; i++) {
-			Edge[] edgesPerNode = previous.nodes[i].getOutputEdges();
+		for (int i = 0; i < previous.numberOfNeurons; i++) {
+			Edge[] edgesPerNode = previous.neurons[i].getOutputEdges();
 			for (int j = 0; j < edgesPerNode.length; j++) {
-				edgesPerNode[j].setRightNode(next.nodes[j]);
+				edgesPerNode[j].setRightNeuron(next.neurons[j]);
 			}
 		}
 
 		// set next layer's nodes to connct to
 		// previous layer's nodes
-		for (int i = 0; i < next.numberOfNodes; i++) {
-			Edge[] inputEdges = new Edge[previous.nodes.length];
+		for (int i = 0; i < next.numberOfNeurons; i++) {
+			Edge[] inputEdges = new Edge[previous.neurons.length];
 			for (int j = 0; j < inputEdges.length; j++) {
-				inputEdges[j] = previous.nodes[j].getOutputEdges()[i];
+				inputEdges[j] = previous.neurons[j].getOutputEdges()[i];
 			}
-			next.nodes[i].setInputEdges(inputEdges);
+			next.neurons[i].setInputEdges(inputEdges);
 		}
 
 	}
 
 
 
-	public Neuron[] getNodes() {
-		return nodes;
+	public Neuron[] getNeurons() {
+		return neurons;
 	}
 
 }

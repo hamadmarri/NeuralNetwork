@@ -10,11 +10,19 @@ public class InputLayer extends Layer {
 
 	public InputLayer(int numberOfNodes, int numberOfOutputEdges) {
 		super(numberOfNodes);
-		this.numberOfOutputEdges = numberOfOutputEdges;
+		this.numberOfOutputEdges = numberOfOutputEdges + 1; // bais
 
-		for (int i = 0; i < this.nodes.length; i++)
-			this.nodes[i].setOutputEdges(new Edge[this.numberOfOutputEdges]);
+		for (int i = 0; i < this.neurons.length; i++)
+			this.neurons[i].setOutputEdges(new Edge[this.numberOfOutputEdges]);
 
+	}
+
+
+
+	@Override
+	public void feedForward() {
+		// just do nothing since input layer
+		// doesn't have to feed from previous layer
 	}
 
 }

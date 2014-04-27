@@ -10,7 +10,10 @@ public class Main {
 		final int hiddenLayerNodes = 4;
 		final int hiddenLayers = 1;
 		NeuralNetwork nw = new NeuralNetwork(inputs, outputs, hiddenLayers, hiddenLayerNodes);
+
+		nw.setInputValues(new double[] { 1, 0 });
 		
+		nw.feedForward();
 	}
 
 }

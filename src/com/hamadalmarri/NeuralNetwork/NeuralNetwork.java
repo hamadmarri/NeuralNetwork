@@ -28,6 +28,26 @@ public class NeuralNetwork {
 
 
 
+	public void setInputValues(double values[]) {
+		for (int i = 0; i < values.length; i++) {
+			this.inputLayer.getNeurons()[i].setOutput(values[i]);
+		}
+	}
+
+
+
+	public void feedForward() {
+
+		// starting from hidden layers
+		for (int i = 0; i < this.hiddenLayers.length; i++)
+			this.hiddenLayers[i].feedForward();
+
+		// and also the output layer
+		this.outputLayer.feedForward();
+	}
+
+
+
 	private void initializeOutputLayer() {
 		this.outputLayer = new OutputLayer(this.numberOfOutputNodes, this.hiddenLayers[this.numberOfHiddenLayers - 1]);
 	}

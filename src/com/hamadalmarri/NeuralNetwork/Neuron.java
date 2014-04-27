@@ -1,8 +1,8 @@
 package com.hamadalmarri.NeuralNetwork;
 
 public class Neuron {
-	private double threshould;
-	private double value;
+	private double threshold;
+	private double output;
 	private Edge[] inputEdges;
 	private Edge[] outputEdges;
 
@@ -11,37 +11,53 @@ public class Neuron {
 	public Neuron() {
 		// Initialise threshold nodes with a random
 		// number between -1 and 1
-		this.threshould = -1 + (2 * Math.random());
+		this.threshold = -1 + (2 * Math.random());
 	}
 
 
 
-	public Neuron(float threshould) {
-		this.threshould = threshould;
+	public void feedForward() {
+		Neuron inputNeuron;
+		Edge inputEdge;
+		double net = this.threshold;
+
+		for (int i = 0; i < this.inputEdges.length; i++) {
+			inputEdge = this.inputEdges[i];
+			inputNeuron = inputEdge.getLeftNeuron();
+			net = net + inputNeuron.output * inputEdge.getWeight();
+		}
+
+		this.output = Neuron.Sigmoid(net);
 	}
 
 
 
-	public double getThreshould() {
-		return threshould;
+	private static double Sigmoid(double net) {
+		return 1 / (1 + Math.exp(-net));
 	}
 
 
 
-	public void setThreshould(double threshould) {
-		this.threshould = threshould;
+	public double getThreshold() {
+		return threshold;
 	}
 
 
 
-	public double getValue() {
-		return value;
+	public void setThreshold(double threshould) {
+		this.threshold = threshould;
 	}
 
 
 
-	public void setValue(double value) {
-		this.value = value;
+	public double getOutput() {
+		return output;
+	}
+
+
+
+	public void setOutput(double value) {
+		this.output = value;
 	}
 
 
