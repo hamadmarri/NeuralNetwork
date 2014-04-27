@@ -1,13 +1,13 @@
 package com.hamadalmarri.NeuralNetwork;
 
 public class Edge {
-	private Node leftNode;
-	private Node rightNode;
+	private Neuron leftNode;
+	private Neuron rightNode;
 	private double weight;
 
 
 
-	public Edge(Node leftNode, Node rightNode) {
+	public Edge(Neuron leftNode, Neuron rightNode) {
 		this.leftNode = leftNode;
 		this.rightNode = rightNode;
 
@@ -18,25 +18,25 @@ public class Edge {
 
 
 
-	public Node getLeftNode() {
+	public Neuron getLeftNode() {
 		return leftNode;
 	}
 
 
 
-	public void setLeftNode(Node leftNode) {
+	public void setLeftNode(Neuron leftNode) {
 		this.leftNode = leftNode;
 	}
 
 
 
-	public Node getRightNode() {
+	public Neuron getRightNode() {
 		return rightNode;
 	}
 
 
 
-	public void setRightNode(Node rightNode) {
+	public void setRightNode(Neuron rightNode) {
 		this.rightNode = rightNode;
 	}
 

@@ -1,6 +1,6 @@
 package com.hamadalmarri.NeuralNetwork;
 
-public class Node {
+public class Neuron {
 	private double threshould;
 	private double value;
 	private Edge[] inputEdges;
@@ -8,7 +8,7 @@ public class Node {
 
 
 
-	public Node() {
+	public Neuron() {
 		// Initialise threshold nodes with a random
 		// number between -1 and 1
 		this.threshould = -1 + (2 * Math.random());
@@ -16,7 +16,7 @@ public class Node {
 
 
 
-	public Node(float threshould) {
+	public Neuron(float threshould) {
 		this.threshould = threshould;
 	}
 

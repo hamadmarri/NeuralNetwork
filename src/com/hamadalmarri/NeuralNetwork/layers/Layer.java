@@ -1,21 +1,21 @@
 package com.hamadalmarri.NeuralNetwork.layers;
 
 import com.hamadalmarri.NeuralNetwork.Edge;
-import com.hamadalmarri.NeuralNetwork.Node;
+import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class Layer {
 	protected int numberOfNodes = 0;
-	protected Node nodes[];
+	protected Neuron nodes[];
 
 
 
 	public Layer(int numberOfNodes) {
 		this.numberOfNodes = numberOfNodes;
-		this.nodes = new Node[numberOfNodes];
+		this.nodes = new Neuron[numberOfNodes];
 
 		// initialize nodes
 		for (int i = 0; i < this.nodes.length; i++)
-			this.nodes[i] = new Node();
+			this.nodes[i] = new Neuron();
 
 	}
 
@@ -45,7 +45,7 @@ public class Layer {
 
 
 
-	public Node[] getNodes() {
+	public Neuron[] getNodes() {
 		return nodes;
 	}
 
