@@ -17,6 +17,7 @@ public abstract class Trainer {
 	protected int numberOfPasses = 2000;
 
 
+
 	public Trainer(String inputFileName, String outputFileName, NeuralNetwork neuralNetwork, int numberOfPasses) {
 		this.neuralNetwork = neuralNetwork;
 		initializeInputFile(inputFileName);
@@ -63,6 +64,10 @@ public abstract class Trainer {
 		this.inputFile.close();
 		this.outputFile.close();
 	}
+
+
+
+	public abstract void generateTest();
 
 
 

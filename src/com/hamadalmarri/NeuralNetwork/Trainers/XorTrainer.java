@@ -19,6 +19,7 @@ public class XorTrainer extends Trainer {
 
 
 
+	@Override
 	public void generateTest() {
 		int a, b, c;
 		PrintWriter pw = null;
