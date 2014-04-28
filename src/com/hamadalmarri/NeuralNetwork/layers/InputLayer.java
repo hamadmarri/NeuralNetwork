@@ -1,6 +1,7 @@
 package com.hamadalmarri.NeuralNetwork.layers;
 
 import com.hamadalmarri.NeuralNetwork.Edge;
+import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class InputLayer extends Layer {
 
@@ -12,8 +13,8 @@ public class InputLayer extends Layer {
 		super(numberOfNodes);
 		this.numberOfOutputEdges = numberOfOutputEdges + 1; // bais
 
-		for (int i = 0; i < this.neurons.length; i++)
-			this.neurons[i].setOutputEdges(new Edge[this.numberOfOutputEdges]);
+		for (Neuron n : this.neurons)
+			n.setOutputEdges(new Edge[this.numberOfOutputEdges]);
 
 	}
 

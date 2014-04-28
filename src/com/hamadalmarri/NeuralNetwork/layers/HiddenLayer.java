@@ -1,6 +1,7 @@
 package com.hamadalmarri.NeuralNetwork.layers;
 
 import com.hamadalmarri.NeuralNetwork.Edge;
+import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class HiddenLayer extends Layer {
 
@@ -13,10 +14,30 @@ public class HiddenLayer extends Layer {
 		super(numberOfNodes);
 		this.numberOfOutputEdges = numberOfOutputEdges + 1; // bais
 		this.previousLayer = previousLayer;
-		for (int i = 0; i < this.neurons.length; i++)
-			this.neurons[i].setOutputEdges(new Edge[this.numberOfOutputEdges]);
+
+		for (Neuron n : this.neurons)
+			n.setOutputEdges(new Edge[this.numberOfOutputEdges]);
 
 		Layer.connectTwoLayers(this.previousLayer, this);
+	}
+
+
+
+	public void backPropagate(double learningRate, double momentum) {
+		double sum = 0;
+
+		for (Neuron n : this.neurons) {
+			sum = 0;
+			for (Edge oe : n.getOutputEdges()) {
+				sum += oe.getWeight() * oe.getRightNeuron().getError();
+			}
+
+			// update error
+			n.setError(sum * n.getOutput() * (1 - n.getOutput()));
+
+			// update delta threshold
+			n.updateThreshold(learningRate, momentum);
+		}
 	}
 
 }

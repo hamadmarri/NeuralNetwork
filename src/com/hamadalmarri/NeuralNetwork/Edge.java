@@ -4,6 +4,7 @@ public class Edge {
 	private Neuron leftNeuron;
 	private Neuron rightNeuron;
 	private double weight;
+	private double DeltaWeight;
 
 
 
@@ -20,6 +21,12 @@ public class Edge {
 
 	public Neuron getLeftNeuron() {
 		return leftNeuron;
+	}
+
+
+
+	public void updateWeight(double learningRate, double momentum) {
+		
 	}
 
 
@@ -50,5 +57,17 @@ public class Edge {
 
 	public void setWeight(double weight) {
 		this.weight = weight;
+	}
+
+
+
+	public double getDeltaWeight() {
+		return DeltaWeight;
+	}
+
+
+
+	public void setDeltaWeight(double deltaWeight) {
+		DeltaWeight = deltaWeight;
 	}
 }

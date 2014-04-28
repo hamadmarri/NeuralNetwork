@@ -3,6 +3,8 @@ package com.hamadalmarri.NeuralNetwork;
 public class Neuron {
 	private double threshold;
 	private double output;
+	private double error;
+	private double DeltaThreshold = 0;
 	private Edge[] inputEdges;
 	private Edge[] outputEdges;
 
@@ -17,22 +19,27 @@ public class Neuron {
 
 
 	public void feedForward() {
-		Neuron inputNeuron;
-		Edge inputEdge;
 		double net = this.threshold;
 
-		for (int i = 0; i < this.inputEdges.length; i++) {
-			inputEdge = this.inputEdges[i];
-			inputNeuron = inputEdge.getLeftNeuron();
-			net = net + inputNeuron.output * inputEdge.getWeight();
-		}
+		for (Edge inputEdge : this.inputEdges)
+			net += inputEdge.getLeftNeuron().output * inputEdge.getWeight();
 
-		this.output = Neuron.Sigmoid(net);
+		this.output = Neuron.sigmoid(net);
 	}
 
 
 
-	private static double Sigmoid(double net) {
+	public void updateThreshold(double learningRate, double momentum) {
+		// update delta threshold
+		this.setDeltaThreshold(learningRate * this.getError() + momentum * this.getDeltaThreshold());
+
+		// update threshold
+		this.setThreshold(this.getThreshold() + this.getDeltaThreshold());
+	}
+
+
+
+	private static double sigmoid(double net) {
 		return 1 / (1 + Math.exp(-net));
 	}
 
@@ -86,6 +93,30 @@ public class Neuron {
 		for (int i = 0; i < this.outputEdges.length; i++)
 			this.outputEdges[i] = new Edge(this, null);
 
+	}
+
+
+
+	public double getError() {
+		return error;
+	}
+
+
+
+	public void setError(double error) {
+		this.error = error;
+	}
+
+
+
+	public double getDeltaThreshold() {
+		return DeltaThreshold;
+	}
+
+
+
+	public void setDeltaThreshold(double deltaThreshold) {
+		DeltaThreshold = deltaThreshold;
 	}
 
 }

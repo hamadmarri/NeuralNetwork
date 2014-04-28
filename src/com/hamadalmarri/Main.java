@@ -14,6 +14,8 @@ public class Main {
 		nw.setInputValues(new double[] { 1, 0 });
 		
 		nw.feedForward();
+		
+		nw.backPropagate();
 	}
 
 }

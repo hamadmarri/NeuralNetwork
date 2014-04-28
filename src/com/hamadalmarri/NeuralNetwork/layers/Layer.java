@@ -37,8 +37,8 @@ public class Layer {
 	public static void connectTwoLayers(Layer previous, Layer next) {
 		// set previous layer's nodes to connect to next
 		// layer's nodes
-		for (int i = 0; i < previous.numberOfNeurons; i++) {
-			Edge[] edgesPerNode = previous.neurons[i].getOutputEdges();
+		for (Neuron pn : previous.neurons) {
+			Edge[] edgesPerNode = pn.getOutputEdges();
 			for (int j = 0; j < edgesPerNode.length; j++) {
 				edgesPerNode[j].setRightNeuron(next.neurons[j]);
 			}

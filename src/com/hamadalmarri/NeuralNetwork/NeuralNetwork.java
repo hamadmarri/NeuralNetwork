@@ -11,6 +11,8 @@ public class NeuralNetwork {
 	private InputLayer inputLayer;
 	private HiddenLayer[] hiddenLayers;
 	private OutputLayer outputLayer;
+	private double learningRate = 0.01;
+	private double momentum = 0.15;
 
 
 
@@ -44,6 +46,19 @@ public class NeuralNetwork {
 
 		// and also the output layer
 		this.outputLayer.feedForward();
+	}
+
+
+
+	public void backPropagate() {
+		this.outputLayer.backPropagate(new double[] { 1 }, this.learningRate, this.momentum);
+
+		// Calculate error for all neurons in the hidden layers
+		// (back propagate the errors
+		for (int i = 0; i < this.hiddenLayers.length; i++) {
+			this.hiddenLayers[i].backPropagate(this.learningRate, this.momentum);
+		}
+
 	}
 
 
