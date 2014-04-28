@@ -31,9 +31,9 @@ public class OutputLayer extends Layer {
 			outputNeuron.updateThreshold(learningRate, momentum);
 
 			// update input edges weights
-			for (Edge e : outputNeuron.getInputEdges()) {
+			for (Edge e : outputNeuron.getInputEdges())
 				e.updateWeight(learningRate, momentum);
-			}
+
 		}
 
 	}

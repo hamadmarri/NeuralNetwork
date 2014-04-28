@@ -26,6 +26,7 @@ public class HiddenLayer extends Layer {
 	public void backPropagate(double learningRate, double momentum) {
 		double sum = 0;
 
+		// Calculate all output error, update threshold, and update weights
 		for (Neuron n : this.neurons) {
 			sum = 0;
 			for (Edge oe : n.getOutputEdges()) {
@@ -37,6 +38,10 @@ public class HiddenLayer extends Layer {
 
 			// update delta threshold
 			n.updateThreshold(learningRate, momentum);
+
+			// update input edges weights
+			for (Edge e : n.getInputEdges())
+				e.updateWeight(learningRate, momentum);
 		}
 	}
 

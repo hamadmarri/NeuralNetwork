@@ -1,31 +1,23 @@
 package com.hamadalmarri.NeuralNetwork;
 
+import java.io.PrintWriter;
+
 import com.hamadalmarri.NeuralNetwork.layers.*;
 
 public class NeuralNetwork {
 
-	private int numberOfInputNodes;
-	private int numberOfOutputNodes;
-	private int numberOfHiddenLayers;
-	private int numberOfHiddenNodes;
 	private InputLayer inputLayer;
 	private HiddenLayer[] hiddenLayers;
 	private OutputLayer outputLayer;
-	private double learningRate = 0.01;
+	private double learningRate = 0.02;
 	private double momentum = 0.15;
 
 
 
-	public NeuralNetwork(int numberOfInputNodes, int numberOfOutputNodes, int numberOfHiddenLayers,
-			int numberOfHiddenNodes) {
-		this.numberOfInputNodes = numberOfInputNodes;
-		this.numberOfOutputNodes = numberOfOutputNodes;
-		this.numberOfHiddenLayers = numberOfHiddenLayers;
-		this.numberOfHiddenNodes = numberOfHiddenNodes;
-
-		initializeInputLayer();
-		initializeHidderLayers();
-		initializeOutputLayer();
+	public NeuralNetwork(int[] config) {
+		initializeInputLayer(config);
+		initializeHidderLayers(config);
+		initializeOutputLayer(config);
 	}
 
 
@@ -41,8 +33,8 @@ public class NeuralNetwork {
 	public void feedForward() {
 
 		// starting from hidden layers
-		for (int i = 0; i < this.hiddenLayers.length; i++)
-			this.hiddenLayers[i].feedForward();
+		for (HiddenLayer hl : this.hiddenLayers)
+			hl.feedForward();
 
 		// and also the output layer
 		this.outputLayer.feedForward();
@@ -50,43 +42,46 @@ public class NeuralNetwork {
 
 
 
+	public void printResult(PrintWriter pw) {
+		for (int i = 0; i < this.outputLayer.getNeurons().length - 1; i++) {
+			Neuron n = this.outputLayer.getNeurons()[i];
+			pw.println("output: " + n.getOutput());
+			pw.println("error: " + n.getError());
+		}
+	}
+
+
+
 	public void backPropagate() {
-		this.outputLayer.backPropagate(new double[] { 1 }, this.learningRate, this.momentum);
+		this.outputLayer.backPropagate(new double[] { 1, 1 }, this.learningRate, this.momentum);
 
 		// Calculate error for all neurons in the hidden layers
 		// (back propagate the errors
-		for (int i = 0; i < this.hiddenLayers.length; i++) {
-			this.hiddenLayers[i].backPropagate(this.learningRate, this.momentum);
-		}
+		for (HiddenLayer hl : this.hiddenLayers)
+			hl.backPropagate(this.learningRate, this.momentum);
 
 	}
 
 
 
-	private void initializeOutputLayer() {
-		this.outputLayer = new OutputLayer(this.numberOfOutputNodes, this.hiddenLayers[this.numberOfHiddenLayers - 1]);
+	private void initializeOutputLayer(int[] config) {
+		this.outputLayer = new OutputLayer(config[config.length - 1], this.hiddenLayers[hiddenLayers.length - 1]);
 	}
 
 
 
-	private void initializeHidderLayers() {
-		this.hiddenLayers = new HiddenLayer[this.numberOfHiddenLayers];
+	private void initializeHidderLayers(int[] config) {
+		this.hiddenLayers = new HiddenLayer[config.length - 2];
 		Layer prevLayer = this.inputLayer;
-		for (int i = 0; i < this.numberOfHiddenLayers - 1; i++) {
-			prevLayer = this.hiddenLayers[i] = new HiddenLayer(this.numberOfHiddenNodes, prevLayer,
-					this.numberOfOutputNodes);
-		}
 
-		// the last hidden layer is different in number of
-		// output edges
-		this.hiddenLayers[this.numberOfHiddenLayers - 1] = new HiddenLayer(this.numberOfHiddenNodes, prevLayer,
-				this.numberOfOutputNodes);
+		for (int i = 0; i < this.hiddenLayers.length; i++)
+			prevLayer = this.hiddenLayers[i] = new HiddenLayer(config[i + 1], prevLayer, config[i + 2]);
 	}
 
 
 
-	private void initializeInputLayer() {
-		this.inputLayer = new InputLayer(this.numberOfInputNodes, this.numberOfHiddenNodes);
+	private void initializeInputLayer(int[] config) {
+		this.inputLayer = new InputLayer(config[0], config[1]);
 	}
 
 }

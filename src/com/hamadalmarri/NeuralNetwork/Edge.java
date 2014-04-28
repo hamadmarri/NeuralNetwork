@@ -26,7 +26,13 @@ public class Edge {
 
 
 	public void updateWeight(double learningRate, double momentum) {
-		
+
+		// update delta weight
+		this.DeltaWeight = learningRate * rightNeuron.getError() * leftNeuron.getOutput()
+				+ (momentum * this.DeltaWeight);
+
+		// update weight
+		this.weight += this.DeltaWeight;
 	}
 
 

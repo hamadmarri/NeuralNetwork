@@ -4,7 +4,7 @@ public class Neuron {
 	private double threshold;
 	private double output;
 	private double error;
-	private double DeltaThreshold = 0;
+	private double deltaThreshold = 0;
 	private Edge[] inputEdges;
 	private Edge[] outputEdges;
 
@@ -31,10 +31,10 @@ public class Neuron {
 
 	public void updateThreshold(double learningRate, double momentum) {
 		// update delta threshold
-		this.setDeltaThreshold(learningRate * this.getError() + momentum * this.getDeltaThreshold());
+		this.deltaThreshold = learningRate * this.getError() + momentum * this.deltaThreshold;
 
 		// update threshold
-		this.setThreshold(this.getThreshold() + this.getDeltaThreshold());
+		this.threshold += this.deltaThreshold;
 	}
 
 
@@ -110,13 +110,13 @@ public class Neuron {
 
 
 	public double getDeltaThreshold() {
-		return DeltaThreshold;
+		return deltaThreshold;
 	}
 
 
 
 	public void setDeltaThreshold(double deltaThreshold) {
-		DeltaThreshold = deltaThreshold;
+		this.deltaThreshold = deltaThreshold;
 	}
 
 }
