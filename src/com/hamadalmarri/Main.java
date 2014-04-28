@@ -1,7 +1,7 @@
 package com.hamadalmarri;
 
 import com.hamadalmarri.NeuralNetwork.NeuralNetwork;
-import com.hamadalmarri.NeuralNetwork.Trainers.XorTrainer;
+import com.hamadalmarri.NeuralNetwork.Trainers.*;
 
 public class Main {
 
@@ -10,14 +10,14 @@ public class Main {
 		NeuralNetwork nw = new NeuralNetwork(config, 0.02, 0.15);
 		String inputPath = "/Users/hamadalmarri/Development/eclipse/NeuralNetwork/input.txt";
 		String outputPath = "/Users/hamadalmarri/Development/eclipse/NeuralNetwork/output.txt";
-		XorTrainer xorT = new XorTrainer(inputPath, outputPath, nw, 1000000);
+		AndTrainer trainer = new AndTrainer(inputPath, outputPath, nw, 100000);
 		long startTime, endTime;
-		
+
 		startTime = System.currentTimeMillis();
-		
-//		xorT.generateTest();
-		xorT.train();
-		
+
+//		trainer.generateTest();
+		trainer.train();
+
 		endTime = System.currentTimeMillis();
 		System.out.println("took: " + (endTime - startTime) + "ms");
 	}
