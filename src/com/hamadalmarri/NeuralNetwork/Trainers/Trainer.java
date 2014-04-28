@@ -1,7 +1,9 @@
 package com.hamadalmarri.NeuralNetwork.Trainers;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
@@ -9,21 +11,31 @@ import java.util.Scanner;
 import com.hamadalmarri.NeuralNetwork.NeuralNetwork;
 
 public abstract class Trainer {
-	private Scanner inputFile;
-	private PrintWriter outputFile;
-	private NeuralNetwork neuralNetwork;
+	protected Scanner inputFile;
+	protected PrintWriter outputFile;
+	protected NeuralNetwork neuralNetwork;
+	protected int numberOfPasses = 2000;
 
 
-
-	public Trainer(String inputFileName, String outputFileName, NeuralNetwork neuralNetwork) {
+	public Trainer(String inputFileName, String outputFileName, NeuralNetwork neuralNetwork, int numberOfPasses) {
 		this.neuralNetwork = neuralNetwork;
 		initializeInputFile(inputFileName);
 		initializeOutputFile(outputFileName);
+		this.numberOfPasses = numberOfPasses;
 	}
 
 
 
 	private void initializeInputFile(String inputFileName) {
+		File f = new File(inputFileName);
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+
 		try {
 			this.inputFile = new Scanner(new FileInputStream(inputFileName));
 		} catch (FileNotFoundException e) {
@@ -43,6 +55,13 @@ public abstract class Trainer {
 			e.printStackTrace();
 			return;
 		}
+	}
+
+
+
+	public void endTraining() {
+		this.inputFile.close();
+		this.outputFile.close();
 	}
 
 

@@ -9,15 +9,18 @@ public class NeuralNetwork {
 	private InputLayer inputLayer;
 	private HiddenLayer[] hiddenLayers;
 	private OutputLayer outputLayer;
-	private double learningRate = 0.02;
+	private double learningRate = 0.01;
 	private double momentum = 0.15;
 
 
 
-	public NeuralNetwork(int[] config) {
+	public NeuralNetwork(int[] config, double learningRate, double momentum) {
 		initializeInputLayer(config);
 		initializeHidderLayers(config);
 		initializeOutputLayer(config);
+
+		this.learningRate = learningRate;
+		this.momentum = momentum;
 	}
 
 
@@ -45,15 +48,22 @@ public class NeuralNetwork {
 	public void printResult(PrintWriter pw) {
 		for (int i = 0; i < this.outputLayer.getNeurons().length - 1; i++) {
 			Neuron n = this.outputLayer.getNeurons()[i];
-			pw.println("output: " + n.getOutput());
+			pw.print("input: ");
+
+			for (int j = 0; j < this.inputLayer.getNeurons().length - 1; j++) {
+				Neuron en = this.inputLayer.getNeurons()[j];
+				pw.print("(" + en.getOutput() + ")");
+			}
+
+			pw.println("\noutput: " + n.getOutput());
 			pw.println("error: " + n.getError());
 		}
 	}
 
 
 
-	public void backPropagate() {
-		this.outputLayer.backPropagate(new double[] { 1, 1 }, this.learningRate, this.momentum);
+	public void backPropagate(double[] expectedValues) {
+		this.outputLayer.backPropagate(expectedValues, this.learningRate, this.momentum);
 
 		// Calculate error for all neurons in the hidden layers
 		// (back propagate the errors
@@ -102,6 +112,4 @@ public class NeuralNetwork {
 		return outputLayer;
 	}
 
-	
-	
 }

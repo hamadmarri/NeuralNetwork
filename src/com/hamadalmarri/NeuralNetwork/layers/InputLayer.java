@@ -11,7 +11,7 @@ public class InputLayer extends Layer {
 
 	public InputLayer(int numberOfNodes, int numberOfOutputEdges) {
 		super(numberOfNodes);
-		this.numberOfOutputEdges = numberOfOutputEdges + 1; // bais
+		this.numberOfOutputEdges = numberOfOutputEdges + 1; // bias
 
 		for (Neuron n : this.neurons)
 			n.setOutputEdges(new Edge[this.numberOfOutputEdges]);
