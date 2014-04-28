@@ -84,4 +84,24 @@ public class NeuralNetwork {
 		this.inputLayer = new InputLayer(config[0], config[1]);
 	}
 
+
+
+	public InputLayer getInputLayer() {
+		return inputLayer;
+	}
+
+
+
+	public HiddenLayer[] getHiddenLayers() {
+		return hiddenLayers;
+	}
+
+
+
+	public OutputLayer getOutputLayer() {
+		return outputLayer;
+	}
+
+	
+	
 }
