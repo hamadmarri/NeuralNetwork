@@ -1,6 +1,10 @@
 package com.hamadalmarri.NeuralNetwork;
 
-public class Edge {
+import java.io.Serializable;
+
+public class Edge implements Serializable {
+
+	private static final long serialVersionUID = 7036430790105246433L;
 	private Neuron leftNeuron;
 	private Neuron rightNeuron;
 	private double weight;

@@ -1,16 +1,18 @@
 package com.hamadalmarri.NeuralNetwork;
 
 import java.io.PrintWriter;
+import java.io.Serializable;
 
 import com.hamadalmarri.NeuralNetwork.layers.*;
 
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable {
 
+	private static final long serialVersionUID = 8273724046476369821L;
 	private InputLayer inputLayer;
 	private HiddenLayer[] hiddenLayers;
 	private OutputLayer outputLayer;
-	private double learningRate = 0.01;
-	private double momentum = 0.15;
+	private double learningRate;
+	private double momentum;
 
 
 

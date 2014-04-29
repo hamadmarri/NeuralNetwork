@@ -1,6 +1,10 @@
 package com.hamadalmarri.NeuralNetwork;
 
-public class Neuron {
+import java.io.Serializable;
+
+public class Neuron implements Serializable {
+
+	private static final long serialVersionUID = -2950925546474588726L;
 	private double threshold;
 	private double output;
 	private double error;

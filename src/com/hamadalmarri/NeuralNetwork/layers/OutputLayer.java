@@ -4,6 +4,8 @@ import com.hamadalmarri.NeuralNetwork.Edge;
 import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class OutputLayer extends Layer {
+
+	private static final long serialVersionUID = -5257498365706472635L;
 	private Layer previousLayer;
 
 

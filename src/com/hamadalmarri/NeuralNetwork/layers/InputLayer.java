@@ -5,6 +5,7 @@ import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class InputLayer extends Layer {
 
+	private static final long serialVersionUID = -4116376177027912450L;
 	private int numberOfOutputEdges;
 
 

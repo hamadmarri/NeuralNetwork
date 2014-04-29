@@ -1,9 +1,13 @@
 package com.hamadalmarri.NeuralNetwork.layers;
 
+import java.io.Serializable;
+
 import com.hamadalmarri.NeuralNetwork.Edge;
 import com.hamadalmarri.NeuralNetwork.Neuron;
 
-public class Layer {
+public class Layer implements Serializable {
+
+	private static final long serialVersionUID = -6231886071576530407L;
 	protected int numberOfNeurons = 0;
 	protected Neuron neurons[];
 

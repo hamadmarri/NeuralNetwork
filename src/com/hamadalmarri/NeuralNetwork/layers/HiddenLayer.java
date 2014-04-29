@@ -5,6 +5,7 @@ import com.hamadalmarri.NeuralNetwork.Neuron;
 
 public class HiddenLayer extends Layer {
 
+	private static final long serialVersionUID = -3223830649940262543L;
 	private Layer previousLayer;
 	private int numberOfOutputEdges;
 
